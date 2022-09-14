@@ -19,8 +19,14 @@ export function App() {
   const dispatch = useDispatch();
 
   const onAddContacts = (payload) => {
-    const action = addContact(payload)
-    dispatch (action);
+   const existingContact = contacts.find(
+      el => el.name.toLocaleLowerCase() === payload.name.toLocaleLowerCase()
+    );
+    if (existingContact) {
+      alert(`${payload.name} is already in your contacts`);
+      return;
+    }
+    dispatch(addContact(payload));
 
   };
 
